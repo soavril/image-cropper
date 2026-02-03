@@ -1,10 +1,18 @@
 /**
  * 이미지 리사이저 - 스마트 크롭 포함
+ *
+ * Phase 1.5: 크롭 위치 옵션 지원
+ * - 'auto': 얼굴 위치 추정 기반 (기본값)
+ * - 'top': 상단 기준
+ * - 'center': 중앙 기준
+ * - 'bottom': 하단 기준
  */
 
 import type { ResizeResult } from '@/types';
 import type { PlatformSpec } from '@/types';
 import { parseRatio } from '@/lib/utils/format';
+
+export type CropPosition = 'auto' | 'top' | 'center' | 'bottom';
 
 /**
  * 리사이즈 계산을 수행합니다.
@@ -52,11 +60,14 @@ function calculateFitResize(
 
 /**
  * 목표 비율에 맞춰 스마트 크롭 + 리사이즈 계산
- * 증명사진의 경우 얼굴이 상단 1/3 지점에 있다고 가정
+ *
+ * Phase 1.5: 크롭 위치 옵션 지원
+ * @param position 크롭 위치 ('auto' | 'top' | 'center' | 'bottom')
  */
 function calculateSmartCropResize(
   source: { width: number; height: number },
-  target: { width: number; height: number; ratio?: string }
+  target: { width: number; height: number; ratio?: string },
+  position: CropPosition = 'auto'
 ): ResizeResult {
   const targetRatio = target.ratio
     ? parseRatio(target.ratio)
@@ -74,13 +85,28 @@ function calculateSmartCropResize(
       cropWidth = Math.round(source.height * targetRatio);
       cropX = Math.round((source.width - cropWidth) / 2);
     } else {
-      // 원본이 더 높음 → 상하 크롭 (상단 30% 지점 기준 - 얼굴 위치 추정)
+      // 원본이 더 높음 → 상하 크롭
       cropHeight = Math.round(source.width / targetRatio);
-
-      // 얼굴이 보통 상단 1/3 지점에 위치
-      // 크롭 시작점을 상단에서 약간 아래로 설정
       const excessHeight = source.height - cropHeight;
-      cropY = Math.round(excessHeight * 0.2); // 상단 20% 정도 자름
+
+      // 크롭 위치에 따른 Y 좌표 계산
+      switch (position) {
+        case 'top':
+          cropY = 0;
+          break;
+        case 'center':
+          cropY = Math.round(excessHeight / 2);
+          break;
+        case 'bottom':
+          cropY = excessHeight;
+          break;
+        case 'auto':
+        default:
+          // 얼굴이 보통 상단 1/3 지점에 위치
+          // 크롭 시작점을 상단에서 약간 아래로 설정
+          cropY = Math.round(excessHeight * 0.2);
+          break;
+      }
     }
   }
 
@@ -131,10 +157,13 @@ export function applyResize(
 
 /**
  * 플랫폼 규격에 맞는 리사이즈 결과를 계산합니다.
+ *
+ * @param position 크롭 위치 (Phase 1.5)
  */
 export function calculatePlatformResize(
   source: { width: number; height: number },
-  platform: PlatformSpec
+  platform: PlatformSpec,
+  position: CropPosition = 'auto'
 ): ResizeResult {
   const target = {
     width: platform.dimensions.width,
@@ -142,7 +171,28 @@ export function calculatePlatformResize(
     ratio: platform.dimensions.ratio,
   };
 
-  return calculateResize(source, target, 'smart-crop');
+  return calculateSmartCropResize(source, target, position);
+}
+
+/**
+ * Phase 1.5: 모든 크롭 위치 옵션의 결과를 미리 계산
+ * 사용자에게 3가지 옵션을 보여주기 위함
+ */
+export function calculateAllCropOptions(
+  source: { width: number; height: number },
+  platform: PlatformSpec
+): Record<CropPosition, ResizeResult> {
+  const positions: CropPosition[] = ['top', 'auto', 'bottom'];
+  const results: Record<string, ResizeResult> = {};
+
+  for (const pos of positions) {
+    results[pos] = calculatePlatformResize(source, platform, pos);
+  }
+
+  // center는 참고용으로 추가
+  results['center'] = calculatePlatformResize(source, platform, 'center');
+
+  return results as Record<CropPosition, ResizeResult>;
 }
 
 /**

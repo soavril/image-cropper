@@ -190,3 +190,113 @@ export async function quickAnalyze(
 ): Promise<{ image: ImageData; analysis: AnalysisResult }> {
   return loadAndAnalyze(file, platform);
 }
+
+/**
+ * Phase 1.5: 수동 크롭 영역으로 이미지 수정
+ *
+ * ManualFrameEditor에서 사용자가 지정한 크롭 영역을 적용합니다.
+ * 자동 크롭 대신 사용자가 선택한 영역을 사용합니다.
+ */
+export async function fixImageWithCropArea(
+  image: ImageData,
+  platform: PlatformSpec,
+  cropArea: { cropX: number; cropY: number; cropWidth: number; cropHeight: number }
+): Promise<{ result: FixResult; blob: Blob }> {
+  const changes: FixChange[] = [];
+  let currentCanvas = image.canvas;
+
+  // 1. 사용자 지정 크롭 영역 적용
+  const croppedCanvas = document.createElement('canvas');
+  croppedCanvas.width = platform.dimensions.width;
+  croppedCanvas.height = platform.dimensions.height;
+
+  const ctx = croppedCanvas.getContext('2d');
+  if (!ctx) {
+    throw new Error('Canvas context not supported');
+  }
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
+  // 크롭 영역에서 목표 크기로 그리기
+  ctx.drawImage(
+    currentCanvas,
+    cropArea.cropX,
+    cropArea.cropY,
+    cropArea.cropWidth,
+    cropArea.cropHeight,
+    0,
+    0,
+    platform.dimensions.width,
+    platform.dimensions.height
+  );
+
+  currentCanvas = croppedCanvas;
+
+  changes.push({
+    type: 'crop',
+    description: '위치 수동 조정',
+    before: formatDimensions(image.currentDimensions.width, image.currentDimensions.height),
+    after: formatDimensions(platform.dimensions.width, platform.dimensions.height),
+  });
+
+  // 2. 포맷 결정
+  const hasTransparency =
+    image.format === 'png' && hasTransparentPixels(image.canvas);
+  const outputFormat = determineOutputFormat(
+    image.format,
+    platform.maxSizeKB,
+    hasTransparency
+  );
+
+  const originalFormat = image.format;
+  const newFormat = outputFormat === 'image/png' ? 'png' : 'jpg';
+
+  if (originalFormat !== newFormat) {
+    changes.push({
+      type: 'format',
+      description: '파일 형식 변환',
+      before: originalFormat.toUpperCase(),
+      after: newFormat.toUpperCase(),
+    });
+  }
+
+  // 3. 압축
+  const blob = await compressToTargetSize(
+    currentCanvas,
+    platform.maxSizeKB,
+    outputFormat
+  );
+
+  // 압축 변경 사항 기록
+  if (blob.size < image.sizeBytes) {
+    changes.push({
+      type: 'compress',
+      description: '파일 크기 최적화',
+      before: formatFileSize(image.sizeBytes),
+      after: formatFileSize(blob.size),
+    });
+  }
+
+  // 수정된 ImageData 생성
+  const fixedImage: ImageData = {
+    canvas: currentCanvas,
+    originalFile: image.originalFile,
+    originalDimensions: image.originalDimensions,
+    currentDimensions: {
+      width: platform.dimensions.width,
+      height: platform.dimensions.height,
+    },
+    format: newFormat,
+    sizeBytes: blob.size,
+    orientation: 1,
+  };
+
+  const result: FixResult = {
+    original: image,
+    fixed: fixedImage,
+    changes,
+  };
+
+  return { result, blob };
+}

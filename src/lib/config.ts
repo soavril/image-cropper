@@ -4,7 +4,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com',
   description: '증명사진 업로드 안됨? 잡코리아, 사람인, 운전면허증 사진 규격에 맞게 자동 변환. 무료, 설치 없음, 3초 완료.',
   author: '사진규격 맞춤',
-  email: 'contact@example.com',
+  email: 'soavril@naver.com',
 };
 
 // 이미지 처리 설정

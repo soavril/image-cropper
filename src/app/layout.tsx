@@ -89,6 +89,13 @@ export default function RootLayout({
         <meta name="geo.region" content="KR" />
         <meta name="geo.placename" content="Korea" />
         <meta name="content-language" content="ko" />
+
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5547434174125750"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="min-h-screen flex flex-col bg-white antialiased">
         {/* Skip to main content - 접근성 */}

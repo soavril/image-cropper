@@ -151,13 +151,14 @@ export function FixPageClient({ platform }: FixPageClientProps) {
           <div className="mb-6">
             <PassFailChecklist
               platform={platformConfig}
-              originalAnalysis={{
+              originalImage={{
                 width: image!.currentDimensions.width,
                 height: image!.currentDimensions.height,
                 sizeBytes: image!.sizeBytes,
                 format: image!.format,
               }}
-              fixedAnalysis={{
+              originalAnalysis={analysis!}
+              fixedImage={{
                 width: fixResult.fixed.currentDimensions.width,
                 height: fixResult.fixed.currentDimensions.height,
                 sizeBytes: fixResult.fixed.sizeBytes,

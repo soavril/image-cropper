@@ -67,7 +67,7 @@ export function PassFailChecklist({
       <div className="p-4 bg-gray-50 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-semibold text-gray-700">
-            🔍 원본 사진 진단
+            🔍 원본 사진 진단 <span className="font-normal text-gray-400">(업로드한 사진)</span>
           </h3>
           {failedCount > 0 ? (
             <span className="text-xs font-medium px-2 py-1 rounded-full bg-red-100 text-red-600">
@@ -140,10 +140,10 @@ export function PassFailChecklist({
       <div className="p-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-semibold text-gray-700">
-            ✅ 변환 결과
+            ✅ 변환 결과 <span className="font-normal text-gray-400">(다운로드할 사진)</span>
           </h3>
           <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-600">
-            {totalCount}/{totalCount} 통과
+            {totalCount}/{totalCount} 항목 충족
           </span>
         </div>
 
@@ -184,7 +184,7 @@ export function PassFailChecklist({
         <div className="text-center py-3 bg-green-50 rounded-xl mb-4">
           <p className="text-green-700 font-medium text-sm">
             {failedCount > 0
-              ? `❌ ${failedCount}개 문제 → ✅ 모두 해결됨`
+              ? `❌ ${failedCount}개 항목 → ✅ 권장 규격으로 변환 완료`
               : '✅ 권장 규격에 맞는 사진입니다'}
           </p>
         </div>
@@ -208,13 +208,11 @@ export function PassFailChecklist({
           </button>
         </div>
 
-        {/* 안내 메시지 */}
+        {/* 안내 메시지 - 모든 플랫폼에 표시 */}
         <p className="text-xs text-gray-400 text-center mt-4">
-          {!platform.source.isOfficial && (
-            <span>
-              ※ 권장 규격 기준이며, 최종 통과는 {platform.displayName} 심사에 따릅니다.
-            </span>
-          )}
+          ※ 본 결과는 권장 규격에 맞게 변환된 것이며,
+          <br />
+          {platform.displayName}의 최종 업로드 통과를 보장하지 않습니다.
         </p>
       </div>
     </Card>

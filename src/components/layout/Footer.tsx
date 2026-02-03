@@ -19,6 +19,12 @@ export function Footer() {
             개인정보처리방침
           </Link>
           <Link
+            href="/terms"
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            이용약관
+          </Link>
+          <Link
             href="/contact"
             className="text-gray-600 hover:text-gray-900 transition-colors"
           >

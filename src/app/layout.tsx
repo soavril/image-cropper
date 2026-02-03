@@ -83,7 +83,7 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         {/* Naver Search Advisor 인증 - 배포 후 인증 코드로 교체 */}
-        <meta name="naver-site-verification" content="YOUR_NAVER_CODE" />
+        <meta name="naver-site-verification" content="570d711c60d98bb59f962e68c67c01c5ccc94a83" />
 
         {/* 추가 SEO 메타 태그 */}
         <meta name="geo.region" content="KR" />

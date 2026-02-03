@@ -35,7 +35,7 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="text-center text-sm text-gray-400">
-          <p>© 2026 제출사진 해결사. All rights reserved.</p>
+          <p>© 2026 사진규격 맞춤. All rights reserved.</p>
           <p className="mt-1">
             본 서비스는 각 플랫폼과 제휴 관계가 없는 독립 서비스입니다.
           </p>

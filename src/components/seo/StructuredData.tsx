@@ -8,20 +8,20 @@ export function HowToSchema({ platform }: { platform: PlatformSpec }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: `${platform.displayName} 사진 업로드 오류 해결 방법`,
-    description: `${platform.displayName}에 사진이 업로드되지 않을 때 해결하는 방법을 안내합니다.`,
+    name: `${platform.displayName} 사진 규격 맞추는 방법`,
+    description: `${platform.displayName}에 사진이 업로드되지 않을 때 규격에 맞게 변환하는 방법을 안내합니다.`,
     image: `${siteConfig.url}/og-image.png`,
     totalTime: 'PT1M',
     tool: {
       '@type': 'HowToTool',
-      name: '제출사진 해결사',
+      name: '사진규격 맞춤',
     },
     step: [
       {
         '@type': 'HowToStep',
         position: 1,
         name: '사진 업로드',
-        text: '문제가 있는 사진을 드래그하거나 클릭하여 업로드합니다.',
+        text: '규격이 맞지 않는 사진을 드래그하거나 클릭하여 업로드합니다.',
         url: `${siteConfig.url}/fix/${platform.name}#upload`,
       },
       {
@@ -34,15 +34,15 @@ export function HowToSchema({ platform }: { platform: PlatformSpec }) {
       {
         '@type': 'HowToStep',
         position: 3,
-        name: '자동 수정',
-        text: '규격에 맞지 않는 항목을 자동으로 수정합니다. (리사이즈, 압축, 비율 조정)',
+        name: '자동 변환',
+        text: '규격에 맞지 않는 항목을 자동으로 변환합니다. (리사이즈, 압축, 비율 조정)',
         url: `${siteConfig.url}/fix/${platform.name}#fix`,
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: '다운로드',
-        text: '수정된 사진을 다운로드하여 제출에 사용합니다.',
+        text: '변환된 사진을 다운로드하여 제출에 사용합니다.',
         url: `${siteConfig.url}/fix/${platform.name}#download`,
       },
     ],
@@ -77,7 +77,7 @@ export function FAQSchema({ platform }: { platform: PlatformSpec }) {
         name: `${platform.displayName} 사진 업로드가 안될 때 어떻게 하나요?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `사진 용량이 ${platform.maxSizeKB}KB를 초과하거나 규격(${platform.dimensions.width}x${platform.dimensions.height}px)이 맞지 않을 수 있습니다. 제출사진 해결사를 사용하면 자동으로 규격에 맞게 변환됩니다.`,
+          text: `사진 용량이 ${platform.maxSizeKB}KB를 초과하거나 규격(${platform.dimensions.width}x${platform.dimensions.height}px)이 맞지 않을 수 있습니다. 사진규격 맞춤을 사용하면 자동으로 규격에 맞게 변환됩니다.`,
         },
       },
       {
@@ -90,7 +90,7 @@ export function FAQSchema({ platform }: { platform: PlatformSpec }) {
       },
       {
         '@type': 'Question',
-        name: '수정된 사진이 100% 통과되나요?',
+        name: '변환된 사진이 100% 통과되나요?',
         acceptedAnswer: {
           '@type': 'Answer',
           text: `본 도구는 ${platform.displayName} 규격에 맞게 사진을 변환하여 통과 가능성을 높여드리지만, 최종 결과는 해당 플랫폼의 심사 기준에 따라 달라질 수 있습니다.`,
@@ -114,8 +114,8 @@ export function WebApplicationSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: '제출사진 해결사',
-    description: '사진 업로드 오류를 3초만에 해결하세요. 잡코리아, 사람인, 운전면허증 등 플랫폼별 규격에 맞춰 자동 변환합니다.',
+    name: '사진규격 맞춤',
+    description: '증명사진 사이즈·용량을 자동으로 변환합니다. 잡코리아, 사람인, 운전면허증 등 플랫폼별 규격에 맞춰 무료로 변환.',
     url: siteConfig.url,
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Web Browser',
@@ -126,7 +126,7 @@ export function WebApplicationSchema() {
       priceCurrency: 'KRW',
     },
     featureList: [
-      '사진 규격 자동 검사',
+      '증명사진 규격 자동 검사',
       '자동 리사이즈 및 크롭',
       '파일 용량 압축',
       '브라우저 내 처리 (서버 저장 없음)',

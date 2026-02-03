@@ -5,10 +5,10 @@ import { getAllPlatforms, OFFICIAL_STANDARDS } from '@/lib/platforms';
 import { WebApplicationSchema, OrganizationSchema } from '@/components/seo';
 
 /**
- * 홈페이지 - 제출사진 해결사
+ * 홈페이지 - 사진규격 맞춤
  *
- * 포지셔닝: 사진 편집기가 아닌 "업로드 실패 방지 도구"
- * 핵심 약속: 사진 업로드 오류를 줄여주는 규격 자동 맞춤 도구
+ * SEO 최적화: 키워드 중심 H1/H2, 문제 기반 콘텐츠
+ * 핵심 약속: 증명사진 규격 자동 변환 도구
  */
 export default function HomePage() {
   const platforms = getAllPlatforms();
@@ -20,17 +20,17 @@ export default function HomePage() {
       <OrganizationSchema />
 
       <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Hero - 문제 기반 H1 */}
+        {/* Hero - SEO 최적화 H1 */}
         <section className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            사진 업로드 안됨?
+            증명사진 업로드 안됨?
             <br />
-            <span className="text-blue-600">3초만에 해결하세요</span>
+            <span className="text-blue-600">규격 자동 변환으로 해결</span>
           </h1>
           <p className="text-gray-600 text-lg">
-            채용 사이트·면허·신분증 제출용 사진을
+            잡코리아·사람인·운전면허증 사진을
             <br className="sm:hidden" />
-            권장 규격에 맞게 자동으로 조정합니다
+            권장 규격에 맞게 자동으로 변환합니다
           </p>
         </section>
 
@@ -126,9 +126,9 @@ export default function HomePage() {
                 3
               </div>
               <div>
-                <h3 className="font-medium text-gray-900">자동 조정 & 다운로드</h3>
+                <h3 className="font-medium text-gray-900">자동 변환 & 다운로드</h3>
                 <p className="text-sm text-gray-500">
-                  권장 규격에 맞게 조정된 사진을 받으세요
+                  권장 규격에 맞게 변환된 사진을 받으세요
                 </p>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function HomePage() {
         {/* Official Standards Reference */}
         <Card className="mb-8 bg-gray-50">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            📐 공식 규격 안내
+            📐 증명사진 규격 안내
           </h2>
           <div className="space-y-4 text-sm">
             <div className="p-3 bg-white rounded-lg">
@@ -206,7 +206,7 @@ export default function HomePage() {
               </h3>
               <p className="text-gray-600 text-sm">
                 각 플랫폼(은행, 정부 사이트, 채용 포털)마다 요구하는 세부 규격이 다릅니다.
-                본 서비스는 일반적인 권장 규격에 맞춰 조정하지만,
+                본 서비스는 일반적인 권장 규격에 맞춰 변환하지만,
                 <strong> 최종 통과 여부는 각 기관의 심사 기준에 따릅니다.</strong>
               </p>
             </div>
@@ -216,7 +216,7 @@ export default function HomePage() {
         {/* SEO Content */}
         <section className="mb-8 prose prose-gray max-w-none">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            사진 업로드 오류, 왜 발생할까요?
+            증명사진 업로드 오류, 왜 발생할까요?
           </h2>
           <p className="text-gray-600 mb-4">
             잡코리아, 사람인 같은 채용 사이트나 운전면허 갱신 시 사진 업로드가
@@ -229,7 +229,7 @@ export default function HomePage() {
             <li>• <strong>파일 형식</strong> - HEIC(아이폰), WEBP 미지원</li>
           </ul>
           <p className="text-gray-600">
-            제출사진 해결사는 이러한 문제를 자동으로 감지하고 권장 규격에 맞게 조정합니다.
+            사진규격 맞춤은 이러한 문제를 자동으로 감지하고 권장 규격에 맞게 변환합니다.
             브라우저에서 바로 처리되므로 개인정보 걱정 없이 사용할 수 있습니다.
           </p>
         </section>

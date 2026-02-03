@@ -2,8 +2,8 @@ import { Card } from '@/components/ui/Card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '서비스 소개',
-  description: '제출사진 해결사 서비스 소개. 사진 업로드 오류를 빠르게 해결해드립니다.',
+  title: '서비스 소개 - 증명사진 규격 변환 도구',
+  description: '사진규격 맞춤 서비스 소개. 증명사진 사이즈, 용량을 자동으로 변환하여 업로드 오류를 해결합니다.',
 };
 
 export default function AboutPage() {
@@ -13,15 +13,15 @@ export default function AboutPage() {
 
       <Card className="mb-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          제출사진 해결사란?
+          사진규격 맞춤이란?
         </h2>
         <p className="text-gray-600 mb-4">
-          제출사진 해결사는 채용 사이트, 관공서 등에 사진을 제출할 때 발생하는
-          업로드 오류를 빠르게 해결해드리는 무료 온라인 도구입니다.
+          사진규격 맞춤은 채용 사이트, 관공서 등에 사진을 제출할 때 발생하는
+          업로드 오류를 해결하는 무료 온라인 도구입니다.
         </p>
         <p className="text-gray-600">
           용량 초과, 규격 불일치, 포맷 오류 등 흔히 발생하는 문제를 자동으로
-          감지하고 수정해드립니다.
+          감지하고 변환해드립니다.
         </p>
       </Card>
 

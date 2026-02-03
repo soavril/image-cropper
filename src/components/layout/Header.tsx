@@ -7,8 +7,8 @@ export function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl">📸</span>
-            <span className="font-bold text-gray-900">제출사진 해결사</span>
+            <span className="text-xl">📐</span>
+            <span className="font-bold text-gray-900">사진규격 맞춤</span>
           </Link>
 
           {/* Navigation */}

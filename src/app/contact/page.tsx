@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: '문의하기',
-  description: '제출사진 해결사 문의 및 피드백',
+  description: '사진규격 맞춤 문의 및 피드백. 서비스 이용 중 문의사항이 있으시면 연락해 주세요.',
 };
 
 export default function ContactPage() {
@@ -42,7 +42,7 @@ export default function ContactPage() {
           </div>
           <div>
             <h3 className="font-medium text-gray-900 mb-1">
-              Q. 수정된 사진이 100% 통과되나요?
+              Q. 변환된 사진이 100% 통과되나요?
             </h3>
             <p className="text-gray-600 text-sm">
               본 도구는 통과 가능성을 높여드리지만, 각 플랫폼의 최종 심사 기준에

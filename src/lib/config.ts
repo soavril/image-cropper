@@ -1,9 +1,9 @@
 // 사이트 설정
 export const siteConfig = {
-  name: '제출사진 해결사',
+  name: '사진규격 맞춤',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com',
-  description: '사진 업로드 안됨? 3초만에 해결하세요. 서버 저장 없이 브라우저에서 바로 처리됩니다.',
-  author: '제출사진 해결사',
+  description: '증명사진 업로드 안됨? 잡코리아, 사람인, 운전면허증 사진 규격에 맞게 자동 변환. 무료, 설치 없음, 3초 완료.',
+  author: '사진규격 맞춤',
   email: 'contact@example.com',
 };
 

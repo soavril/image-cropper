@@ -260,8 +260,8 @@ export default async function GuidePage({ params }: PageProps) {
               </h3>
               <p className="text-gray-600 text-sm">
                 네, 스마트폰 사진도 사용 가능합니다. 다만 용량이 크고 비율이 맞지
-                않아 조정이 필요합니다. 제출사진 해결사를 사용하면 권장 규격에 맞게
-                자동으로 조정됩니다.
+                않아 조정이 필요합니다. 사진규격 맞춤을 사용하면 권장 규격에 맞게
+                자동으로 변환됩니다.
               </p>
             </div>
             {additionalFAQs.map((faq, i) => (

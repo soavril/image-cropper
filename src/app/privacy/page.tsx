@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '개인정보처리방침',
-  description: '제출사진 해결사 개인정보처리방침',
+  description: '사진규격 맞춤 개인정보처리방침. 모든 이미지 처리는 브라우저에서만 이루어지며 서버에 저장되지 않습니다.',
 };
 
 export default function PrivacyPage() {
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
 
       <Card className="mb-6">
         <p className="text-gray-600 mb-4">
-          제출사진 해결사(이하 &quot;서비스&quot;)는 이용자의 개인정보를
+          사진규격 맞춤(이하 &quot;서비스&quot;)은 이용자의 개인정보를
           중요시하며, 개인정보보호법 등 관련 법령을 준수합니다.
         </p>
         <p className="text-sm text-gray-500">최종 수정일: 2026년 2월</p>

@@ -9,6 +9,14 @@ interface ResultPreviewProps {
   result: FixResult;
 }
 
+/**
+ * 결과 미리보기 컴포넌트
+ *
+ * 핵심 원칙:
+ * - "통과 보장" 표현 금지
+ * - 실제 출력 파일 크기 명확히 표시
+ * - 적용된 변경사항 투명하게 안내
+ */
 export function ResultPreview({ result }: ResultPreviewProps) {
   const beforeCanvasRef = useRef<HTMLCanvasElement>(null);
   const afterCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -63,73 +71,91 @@ export function ResultPreview({ result }: ResultPreviewProps) {
 
   return (
     <Card>
+      {/* 결과 메시지 - 보장 표현 없이 */}
       <div className="text-center mb-6">
         <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full font-medium">
-          ✅ 규격 변환 완료!
+          ✅ 권장 규격에 맞게 조정되었습니다
         </span>
-        <p className="text-xs text-gray-500 mt-2">
-          요청한 규격에 맞게 변환되었습니다. 최종 통과는 플랫폼 심사에 따릅니다.
-        </p>
       </div>
 
-      {/* Before/After Comparison */}
+      {/* Before/After Comparison - 실제 크기 명시 */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         {/* Before */}
         <div className="text-center">
-          <p className="text-sm text-gray-500 mb-2">수정 전</p>
+          <p className="text-sm text-gray-500 mb-2">변환 전</p>
           <div className="bg-gray-100 rounded-lg p-3 flex items-center justify-center min-h-[160px]">
             <canvas
               ref={beforeCanvasRef}
               className="max-w-full max-h-[150px] rounded"
             />
           </div>
-          <p className="text-xs text-gray-400 mt-2">
-            {formatBytes(result.original.sizeBytes)}
-          </p>
-          <p className="text-xs text-gray-400">
-            {formatDimensions(
-              result.original.currentDimensions.width,
-              result.original.currentDimensions.height
-            )}
-          </p>
+          <div className="mt-2 space-y-1">
+            <p className="text-sm font-medium text-gray-700">
+              {formatBytes(result.original.sizeBytes)}
+            </p>
+            <p className="text-xs text-gray-400">
+              {formatDimensions(
+                result.original.currentDimensions.width,
+                result.original.currentDimensions.height
+              )}
+            </p>
+          </div>
         </div>
 
         {/* After */}
         <div className="text-center">
-          <p className="text-sm text-gray-500 mb-2">수정 후</p>
+          <p className="text-sm text-gray-500 mb-2">변환 후</p>
           <div className="bg-blue-50 rounded-lg p-3 flex items-center justify-center min-h-[160px] border-2 border-blue-200">
             <canvas
               ref={afterCanvasRef}
               className="max-w-full max-h-[150px] rounded"
             />
           </div>
-          <p className="text-xs text-blue-600 font-medium mt-2">
-            {formatBytes(result.fixed.sizeBytes)}
-          </p>
-          <p className="text-xs text-blue-600">
-            {formatDimensions(
-              result.fixed.currentDimensions.width,
-              result.fixed.currentDimensions.height
-            )}
-          </p>
+          <div className="mt-2 space-y-1">
+            <p className="text-sm font-bold text-blue-600">
+              {formatBytes(result.fixed.sizeBytes)}
+            </p>
+            <p className="text-xs text-blue-500">
+              {formatDimensions(
+                result.fixed.currentDimensions.width,
+                result.fixed.currentDimensions.height
+              )}
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Changes Summary */}
-      <div className="bg-gray-50 rounded-xl p-4">
-        <h4 className="font-medium text-gray-900 mb-3">변경 사항</h4>
+      {/* Applied Changes Summary */}
+      <div className="bg-gray-50 rounded-xl p-4 mb-4">
+        <h4 className="font-medium text-gray-900 mb-3">적용된 변경사항</h4>
         <ul className="space-y-2 text-sm">
           {result.changes.map((change, index) => (
             <ChangeItem key={index} change={change} />
           ))}
           {sizeReduction > 0 && (
             <li className="flex items-center gap-2 text-green-600">
-              <span>•</span>
+              <span>✓</span>
               <span>파일 크기 {sizeReduction}% 감소</span>
             </li>
           )}
         </ul>
       </div>
+
+      {/* 출력 파일 정보 강조 */}
+      <div className="bg-blue-50 rounded-xl p-4 text-center">
+        <p className="text-sm text-blue-800 mb-1">최종 출력 파일</p>
+        <p className="text-2xl font-bold text-blue-600">
+          {formatBytes(result.fixed.sizeBytes)}
+        </p>
+        <p className="text-xs text-blue-600 mt-1">
+          {result.fixed.currentDimensions.width} × {result.fixed.currentDimensions.height} px
+        </p>
+      </div>
+
+      {/* 안내 메시지 */}
+      <p className="text-xs text-gray-400 text-center mt-4">
+        최종 업로드 결과는 각 플랫폼의 심사 기준에 따릅니다
+      </p>
     </Card>
   );
 }
@@ -137,9 +163,9 @@ export function ResultPreview({ result }: ResultPreviewProps) {
 function ChangeItem({ change }: { change: FixChange }) {
   return (
     <li className="flex items-center gap-2 text-gray-600">
-      <span>•</span>
+      <span className="text-green-500">✓</span>
       <span>{change.description}</span>
-      <span className="text-gray-400">
+      <span className="text-gray-400 text-xs">
         ({change.before} → {change.after})
       </span>
     </li>

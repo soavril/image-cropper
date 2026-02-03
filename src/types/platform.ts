@@ -29,6 +29,8 @@ export interface PlatformSpec {
     lastVerified: string; // 마지막 확인일
     isEstimate: boolean;  // 추정치 여부
   };
+  // 플랫폼별 추가 안내 메시지
+  platformNote?: string;
 }
 
 export type PlatformId = 'jobkorea' | 'saramin' | 'drivers-license' | 'id-card';

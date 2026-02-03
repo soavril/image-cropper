@@ -1,8 +1,11 @@
 import type { PlatformSpec, PlatformId } from '@/types';
-import { jobkoreaSpec } from './jobkorea';
-import { saraminSpec } from './saramin';
-import { driversLicenseSpec } from './drivers-license';
-import { idCardSpec } from './id-card';
+import {
+  jobkoreaSpec,
+  saraminSpec,
+  driversLicenseSpec,
+  idCardSpec,
+  OFFICIAL_STANDARDS,
+} from './presets';
 
 export const platforms: Record<PlatformId, PlatformSpec> = {
   jobkorea: jobkoreaSpec,
@@ -23,4 +26,8 @@ export function isPlatformId(id: string): id is PlatformId {
   return id in platforms;
 }
 
+// 공식 기준 상수 export
+export { OFFICIAL_STANDARDS };
+
+// 개별 스펙 export (하위 호환성)
 export { jobkoreaSpec, saraminSpec, driversLicenseSpec, idCardSpec };

@@ -25,17 +25,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: '페이지를 찾을 수 없습니다' };
   }
 
-  const title = `${platform.displayName} 사진 규격 완벽 가이드 2026`;
-  const description = `${platform.displayName} 사진 규격: ${platform.dimensions.width}x${platform.dimensions.height}px, ${platform.maxSizeKB}KB 이하, ${platform.formats.map(f => f.toUpperCase()).join('/')} 형식. 업로드 오류 해결 방법과 팁을 확인하세요.`;
+  // SEO 최적화된 타이틀: 키워드 + 연도 + 해결 의도
+  const title = `${platform.displayName} 사진 업로드 안됨? 규격 가이드 2026`;
+  const description = `${platform.displayName} 사진 규격: ${platform.dimensions.width}x${platform.dimensions.height}px, ${platform.maxSizeKB}KB 이하. 업로드 오류 원인과 해결 방법을 확인하세요. 용량 초과, 비율 불일치 문제를 자동으로 수정합니다.`;
 
   return {
     title,
     description,
     keywords: [
       ...platform.keywords.spec,
+      ...platform.keywords.error,
       `${platform.displayName} 사진 규격`,
       `${platform.displayName} 사진 크기`,
       `${platform.displayName} 증명사진`,
+      `${platform.displayName} 사진 용량 줄이기`,
     ],
     openGraph: {
       title,
@@ -74,16 +77,16 @@ export default async function GuidePage({ params }: PageProps) {
       <BreadcrumbSchema items={breadcrumbItems} />
 
       <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Hero */}
+        {/* Hero - SEO 최적화된 H1 */}
         <section className="text-center mb-8">
           <p className="text-blue-600 font-medium mb-2">2026년 기준</p>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            {platform.displayName} 사진 규격
+            {platform.displayName} 사진 업로드 안됨?
             <br />
-            완벽 가이드
+            <span className="text-blue-600">규격 가이드 & 해결 방법</span>
           </h1>
           <p className="text-gray-600">
-            업로드 오류 없이 한 번에 통과하는 방법
+            용량 초과, 비율 불일치 오류를 한 번에 해결하세요
           </p>
         </section>
 
@@ -283,13 +286,52 @@ export default async function GuidePage({ params }: PageProps) {
           </div>
         </Card>
 
-        {/* Disclaimer */}
-        <div className="mt-8 p-4 bg-amber-50 border border-amber-100 rounded-xl">
-          <p className="text-sm text-amber-800">
-            <strong>안내:</strong> 본 정보는 2026년 기준 추정치이며, 실제 규격은
-            변경될 수 있습니다. 정확한 규격은 {platform.displayName} 공식
-            안내를 참고하세요.
+        {/* Source & Disclaimer */}
+        <Card className="mt-8 bg-gray-50 border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3">
+            📖 규격 정보 출처
+          </h2>
+          <div className="space-y-2 text-sm text-gray-600 mb-4">
+            <p>
+              <strong>참고:</strong> {platform.source.name}
+              {platform.source.url && (
+                <>
+                  {' '}(
+                  <a
+                    href={platform.source.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    공식 사이트
+                  </a>
+                  )
+                </>
+              )}
+            </p>
+            <p>
+              <strong>마지막 확인:</strong> {platform.source.lastVerified}
+            </p>
+            {platform.source.isEstimate && (
+              <p className="text-amber-700">
+                ⚠️ 본 규격은 사용자 경험 기반 추정치입니다.
+                공식 API 문서가 공개되지 않아 실제와 다를 수 있습니다.
+              </p>
+            )}
+          </div>
+        </Card>
+
+        {/* Legal Disclaimer */}
+        <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-xl">
+          <p className="text-sm text-amber-800 mb-2">
+            <strong>면책 안내:</strong>
           </p>
+          <ul className="text-sm text-amber-700 space-y-1">
+            <li>• 본 서비스는 사진 규격 변환을 도와드리는 보조 도구입니다.</li>
+            <li>• <strong>통과 가능성을 높여드리지만, 100% 통과를 보장하지 않습니다.</strong></li>
+            <li>• 최종 통과 여부는 {platform.displayName} 심사 기준에 따릅니다.</li>
+            <li>• 정확한 규격은 반드시 공식 안내 페이지를 확인하세요.</li>
+          </ul>
         </div>
       </div>
     </>

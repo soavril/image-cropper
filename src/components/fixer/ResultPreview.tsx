@@ -65,8 +65,11 @@ export function ResultPreview({ result }: ResultPreviewProps) {
     <Card>
       <div className="text-center mb-6">
         <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full font-medium">
-          ✅ 수정 완료! 통과 가능성이 높아졌습니다
+          ✅ 규격 변환 완료!
         </span>
+        <p className="text-xs text-gray-500 mt-2">
+          요청한 규격에 맞게 변환되었습니다. 최종 통과는 플랫폼 심사에 따릅니다.
+        </p>
       </div>
 
       {/* Before/After Comparison */}

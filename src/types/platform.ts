@@ -22,6 +22,13 @@ export interface PlatformSpec {
     error: string[];
     spec: string[];
   };
+  // 규격 출처 및 신뢰도 정보
+  source: {
+    name: string;        // 출처명
+    url?: string;        // 공식 가이드 URL (있는 경우)
+    lastVerified: string; // 마지막 확인일
+    isEstimate: boolean;  // 추정치 여부
+  };
 }
 
 export type PlatformId = 'jobkorea' | 'saramin' | 'drivers-license' | 'id-card';

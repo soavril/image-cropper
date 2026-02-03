@@ -147,11 +147,15 @@ export default function HomePage() {
 
         {/* Disclaimer */}
         <div className="mt-8 p-4 bg-amber-50 border border-amber-100 rounded-xl">
-          <p className="text-sm text-amber-800">
-            <strong>안내:</strong> 본 서비스는 사진 규격 변환을 도와드리는 보조
-            도구입니다. 통과 가능성을 높여드리지만, 100% 보장하지 않습니다. 최종
-            결과는 해당 플랫폼의 심사 기준에 따릅니다.
+          <p className="text-sm text-amber-800 mb-2">
+            <strong>면책 안내:</strong>
           </p>
+          <ul className="text-sm text-amber-700 space-y-1">
+            <li>• 본 서비스는 사진 규격 변환을 도와드리는 보조 도구입니다.</li>
+            <li>• 규격 정보는 사용자 경험 기반 추정치이며, 공식 정보와 다를 수 있습니다.</li>
+            <li>• <strong>100% 통과를 보장하지 않습니다.</strong> 최종 결과는 해당 플랫폼의 심사 기준에 따릅니다.</li>
+            <li>• 정확한 규격은 각 플랫폼의 공식 안내를 확인하세요.</li>
+          </ul>
         </div>
       </div>
     </>
